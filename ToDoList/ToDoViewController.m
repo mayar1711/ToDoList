@@ -11,15 +11,15 @@
 #import "ViewController.h"
 #import "DetailViewController.h"
 
-@interface ToDoViewController ()
+@interface ToDoViewController () <UISearchBarDelegate>
 {
     NSMutableArray *toDoList;
     ViewController *addTaskViewController;
     NSMutableArray<Data *> *midPriorityTasks;
     NSMutableArray<Data *> *highPriorityTasks ;
     NSMutableArray<Data *> *lowPriorityTasks ;
+    
 }
-
 
 
 @property (nonatomic, strong) UISearchController *searchController;
@@ -43,12 +43,19 @@
        [self loadTasksFromDefults];
        [self filterTasksByPriority];
        [self setupNavigationBar];
-       [self setupSearchController];
-       self.task=highPriorityTasks;
-     //  [self.table reloadData];
+      [self setupSearchController];
+       self.task=toDoList;
+      [self.table reloadData];
 }
-
-
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
+    if (searchText.length == 0) {
+        self.task = [toDoList mutableCopy];
+    } else {
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name CONTAINS[cd] %@", searchText];
+        self.task = [[toDoList filteredArrayUsingPredicate:predicate] mutableCopy];
+    }
+    [self.table reloadData];
+}
 
 - (void)filterTasksByPriority {
     [midPriorityTasks removeAllObjects];
@@ -70,19 +77,22 @@
    }
 - (IBAction)filter:(id)sender {
     switch (_priority.selectedSegmentIndex) {
-         case 0:
-             self.task = highPriorityTasks;
-             break;
-         case 1:
-             self.task = midPriorityTasks;
-             break;
-         case 2:
-             self.task = lowPriorityTasks;
-             break;
-         default:
-             self.task = highPriorityTasks;
-             break;
-     }
+           case 0:
+               self.task = toDoList;
+               break;
+           case 1:
+               self.task = highPriorityTasks;
+               break;
+           case 2:
+               self.task = midPriorityTasks;
+               break;
+           case 3:
+               self.task = lowPriorityTasks;
+               break;
+           default:
+               self.task = toDoList;
+               break;
+       }
 
     [self.table reloadData];
     
@@ -124,12 +134,13 @@
     [toDoList addObject:newTask];
   //  [self loadTasksFromDefults];
 }
+- (void)didDelete:(Data *)deleteTask{
+    [toDoList removeObject:deleteTask];
+}
 
 #pragma mark - UISearchBarDelegate
 
-- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
-    
-}
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
     
@@ -143,21 +154,24 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
     Data *taskData = self.task[indexPath.row];
       cell.textLabel.text = taskData.name;
-
+    cell.imageView.image=[UIImage imageNamed:taskData.pir];
       return cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     DetailViewController *detailViewController = [storyboard instantiateViewControllerWithIdentifier:@"DetailViewController"];
     
-    Data *selectedTask = self.task[indexPath.row];
+    Data *selectedTask = toDoList[indexPath.row];
     detailViewController.selectedTask = selectedTask;
-    
+    detailViewController.selectedTaskIndex=indexPath.row;
+    [self filterTasksByPriority];
+    [self.table reloadData];
+    detailViewController.insertNewIteam=self;
     [self.navigationController pushViewController:detailViewController animated:YES];
 }
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-  //  [self loadTasksFromDefults];
+    self.task = [NSMutableArray array];
     [self filterTasksByPriority];
     [self.table reloadData];
 }

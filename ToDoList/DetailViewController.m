@@ -24,25 +24,26 @@
     self.nameText.text = self.selectedTask.name;
        self.disText.text = self.selectedTask.dis;
        self.dateText.text = self.selectedTask.date;
+    
     [self getPriority];
        [self.priority setSelectedSegmentIndex:_prioritySegmentIndex];
     [self getState];
     [self.state setSelectedSegmentIndex:_stateSegmentIndex];
-
+     
 }
 - (IBAction)updateTask:(id)sender {
-         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Update Task" message:@"Do you want to update this task?" preferredStyle:UIAlertControllerStyleAlert];
-         
-         UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
-         UIAlertAction *updateAction = [UIAlertAction actionWithTitle:@"Update" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-             [self updateTaskAndSave];
-         }];
-         
-         [alert addAction:cancelAction];
-         [alert addAction:updateAction];
-         [self presentViewController:alert animated:YES completion:nil];
-     
- }
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Update Task" message:@"Do you want to update this task?" preferredStyle:UIAlertControllerStyleAlert];
+       
+       UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
+       UIAlertAction *updateAction = [UIAlertAction actionWithTitle:@"Update" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+           [self updateTaskAndSave];
+           [self.navigationController popViewControllerAnimated:YES];
+       }];
+       
+       [alert addAction:cancelAction];
+       [alert addAction:updateAction];
+       [self presentViewController:alert animated:YES completion:nil];
+   }
 
 -(void)getPriority{
     if([self.selectedTask.pir isEqual:@"mid"])
@@ -74,15 +75,70 @@
     
 }
 - (void)updateTaskAndSave {
- 
+
     [self updateUserDefaults];
+    [self.navigationController popViewControllerAnimated:YES];
 }
+
+
 - (void)updateUserDefaults {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        NSData *encodedData = [NSKeyedArchiver archivedDataWithRootObject:self.selectedTask];
+    NSData *existingData = [defaults objectForKey:@"ToDoListTaskes"];
+    NSMutableArray<Data *> *existingTasks = [NSMutableArray array];
     
-    [defaults setObject:encodedData forKey:@"ToDoListTaskes"];
+    if (existingData) {
+        existingTasks = [[NSKeyedUnarchiver unarchiveObjectWithData:existingData] mutableCopy];
+    }
     
-    [defaults synchronize];
+    NSLog(@"Existing tasks: %@", existingTasks);
+    NSLog(@"Selected task: %@", self.selectedTask);
+    
+    NSInteger index = [existingTasks indexOfObject:self.selectedTask];
+    if (index != 0) {
+        Data *updatedTask = existingTasks[self.selectedTaskIndex];
+        updatedTask.name = self.nameText.text;
+        NSLog(@"Selected task: %@", updatedTask.name);
+        updatedTask.dis = self.disText.text;
+        updatedTask.date = self.dateText.text;
+        NSNumber *periortyNum = [[NSNumber alloc] initWithInteger:_priority.selectedSegmentIndex];
+        int x=periortyNum.intValue;
+        switch (x) {
+            case 0:
+                updatedTask.pir =@"high";
+                break;
+            case 1:
+                updatedTask.pir = @"mid";
+                break;
+            case 2:
+                updatedTask.pir = @"low";
+                break;
+        }
+        NSNumber *stateNum = [[NSNumber alloc] initWithInteger:_state.selectedSegmentIndex];
+        int z=stateNum.intValue;
+        switch (z) {
+            case 0:
+                updatedTask.state =@"todo";
+                break;
+            case 1:
+                updatedTask.state = @"doing";
+                break;
+            case 2:
+                updatedTask.state = @"done";
+                break;
+        }
+        [_insertNewIteam didDelete:existingTasks[_selectedTaskIndex]];
+        [existingTasks removeObjectAtIndex:_selectedTaskIndex];
+        [existingTasks addObject:updatedTask];
+        //[_insertNewIteam didSaveTask:updatedTask];
+
+        NSLog(@"Selected task: %@", updatedTask.state);
+        NSData *encodedData = [NSKeyedArchiver archivedDataWithRootObject:existingTasks];
+        [defaults setObject:encodedData forKey:@"ToDoListTaskes"];
+        [defaults synchronize];
+        
+    } else {
+        NSLog(@"Selected task not found in existing tasks.");
+    }
 }
+
 @end

@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol TaskProtocol <NSObject>
 - (void)didSaveTask :(Data *)newTask;
+-(void)didDelete :(Data *)deleteTask;
 @end
 
 NS_ASSUME_NONNULL_END

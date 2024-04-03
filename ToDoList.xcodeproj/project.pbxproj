@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		7D804E412BBCB1C900BF56E6 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D804E402BBCB1C900BF56E6 /* DetailViewController.m */; };
+		7D901CEE2BBD0FCA00281A66 /* DoneTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D901CED2BBD0FCA00281A66 /* DoneTableViewController.m */; };
 		7D99F3FB2BBBEBC40030737C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D99F3FA2BBBEBC40030737C /* AppDelegate.m */; };
 		7D99F3FE2BBBEBC40030737C /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D99F3FD2BBBEBC40030737C /* SceneDelegate.m */; };
 		7D99F4012BBBEBC40030737C /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D99F4002BBBEBC40030737C /* ViewController.m */; };
@@ -23,6 +24,8 @@
 /* Begin PBXFileReference section */
 		7D804E3F2BBCB1C900BF56E6 /* DetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
 		7D804E402BBCB1C900BF56E6 /* DetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
+		7D901CEC2BBD0FCA00281A66 /* DoneTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DoneTableViewController.h; sourceTree = "<group>"; };
+		7D901CED2BBD0FCA00281A66 /* DoneTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DoneTableViewController.m; sourceTree = "<group>"; };
 		7D99F3F62BBBEBC40030737C /* ToDoList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToDoList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D99F3F92BBBEBC40030737C /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		7D99F3FA2BBBEBC40030737C /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -94,6 +97,8 @@
 				7D99F41B2BBC132F0030737C /* TaskProtocol.h */,
 				7D804E3F2BBCB1C900BF56E6 /* DetailViewController.h */,
 				7D804E402BBCB1C900BF56E6 /* DetailViewController.m */,
+				7D901CEC2BBD0FCA00281A66 /* DoneTableViewController.h */,
+				7D901CED2BBD0FCA00281A66 /* DoneTableViewController.m */,
 			);
 			path = ToDoList;
 			sourceTree = "<group>";
@@ -172,6 +177,7 @@
 				7D99F3FB2BBBEBC40030737C /* AppDelegate.m in Sources */,
 				7D99F4172BBC03790030737C /* ToDoViewController.m in Sources */,
 				7D804E412BBCB1C900BF56E6 /* DetailViewController.m in Sources */,
+				7D901CEE2BBD0FCA00281A66 /* DoneTableViewController.m in Sources */,
 				7D99F40C2BBBEBC50030737C /* main.m in Sources */,
 				7D99F41A2BBC0FA10030737C /* Data.m in Sources */,
 				7D99F4142BBBEEC50030737C /* TableViewController.m in Sources */,

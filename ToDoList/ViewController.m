@@ -51,7 +51,7 @@
     int x=periortyNum.intValue;
     switch (x) {
         case 0:
-            newTask.pir = @"high";
+            newTask.pir =@"high";
             break;
         case 1:
             newTask.pir = @"mid";
@@ -71,7 +71,6 @@
     NSData *encodedData = [NSKeyedArchiver archivedDataWithRootObject:taskes];
     [myDefaulse setObject:encodedData forKey:@"ToDoListTaskes"];
     [_insertNewIteam didSaveTask:newTask];
-    BOOL result=[myDefaulse synchronize];
     NSLog(@"Task saved successfully.");
     
     [self.navigationController popViewControllerAnimated:YES];
