@@ -7,7 +7,8 @@
 
 #import "ViewController.h"
 
-@interface ViewController ()
+@interface ViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+
 {
     NSMutableData *notes;
 }
@@ -41,22 +42,37 @@
     
     NSString *name = self.nameText.text;
     NSString *dis = self.disText.text;
-    // NSString *priority = [self.priority titleForSegmentAtIndex:self.priority.selectedSegmentIndex];
+    NSNumber *periortyNum = [[NSNumber alloc] initWithInteger:_priority.selectedSegmentIndex];
     Data *newTask = [[Data alloc] init];
     newTask.name = name;
     newTask.dis = dis;
     newTask.date = [self formattedDate];
-    newTask.pir = @"mid";
-    
+    newTask.state=@"todo";
+    int x=periortyNum.intValue;
+    switch (x) {
+        case 0:
+            newTask.pir = @"high";
+            break;
+        case 1:
+            newTask.pir = @"mid";
+            break;
+        case 2:
+            newTask.pir = @"low";
+            break;
+       
+        default:
+            newTask.pir = @"high";
+            break;
+    }
+        
     [taskes addObject:newTask];
-    
-   // NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSLog(@" \nTask saved successfully %@ \n.",newTask.pir);
+
     NSData *encodedData = [NSKeyedArchiver archivedDataWithRootObject:taskes];
     [myDefaulse setObject:encodedData forKey:@"ToDoListTaskes"];
     [_insertNewIteam didSaveTask:newTask];
     BOOL result=[myDefaulse synchronize];
     NSLog(@"Task saved successfully.");
-      //  [self.delegate didSaveTask];
     
     [self.navigationController popViewControllerAnimated:YES];
 }

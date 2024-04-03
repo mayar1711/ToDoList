@@ -14,6 +14,7 @@
     [coder encodeObject:_dis forKey:@"dis"];
     [coder encodeObject:_date forKey:@"date"];
     [coder encodeObject:_pir forKey:@"pir"];
+    [coder encodeObject:_state forKey:@"state"];
 }
 
 - (instancetype)initWithCoder:(NSCoder *)coder {
@@ -23,6 +24,7 @@
         _dis = [coder decodeObjectForKey:@"dis"];
         _date = [coder decodeObjectForKey:@"date"];
         _pir = [coder decodeObjectForKey:@"pir"];
+        _state =[coder decodeObjectForKey:@"state"];
     }
     return self;
 }

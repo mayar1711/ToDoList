@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy) NSString *dis;
 @property (nonatomic, copy) NSString *date;
 @property (nonatomic , copy) NSString *pir;
+@property (nonatomic,copy)NSString *state;
 
 
 @end

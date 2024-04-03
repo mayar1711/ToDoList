@@ -9,10 +9,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Detail View Controller-->
         <scene sceneID="pZs-m0-Nuz">
             <objects>
-                <viewController id="6oj-2S-Dmw" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DetailViewController" id="6oj-2S-Dmw" customClass="DetailViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ijh-Dt-28a">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -54,6 +54,7 @@
                                 <rect key="frame" x="174" y="245" width="209" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <segments>
+                                    <segment title="ToDo"/>
                                     <segment title="Doing"/>
                                     <segment title="Done"/>
                                 </segments>
@@ -88,10 +89,29 @@
                                     <segment title="low"/>
                                 </segments>
                             </segmentedControl>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IVN-aH-Po8">
+                                <rect key="frame" x="149" y="548" width="80" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemIndigoColor"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Update">
+                                    <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="updateTask:" destination="6oj-2S-Dmw" eventType="touchUpInside" id="vTQ-z0-pLh"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="rzH-ds-K8I"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
+                    <connections>
+                        <outlet property="dateText" destination="GRF-iS-Ary" id="qTQ-RO-ZXh"/>
+                        <outlet property="disText" destination="paY-G3-ZtZ" id="19D-LW-bRl"/>
+                        <outlet property="nameText" destination="2IL-FO-MZ6" id="GyL-fA-Rhf"/>
+                        <outlet property="priority" destination="IWZ-s8-464" id="PSK-le-EUn"/>
+                        <outlet property="state" destination="766-le-bcG" id="c4z-5W-Q62"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QiW-xk-iCD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -146,9 +166,6 @@
                                     <segment title="med"/>
                                     <segment title="low"/>
                                 </segments>
-                                <connections>
-                                    <action selector="takePicture:" destination="BYZ-38-t0r" eventType="valueChanged" id="CwQ-Wa-Uwz"/>
-                                </connections>
                             </segmentedControl>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k6m-Cx-ig5">
                                 <rect key="frame" x="142" y="409" width="109" height="35"/>
@@ -205,9 +222,12 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <segments>
                                     <segment title="high"/>
-                                    <segment title="med"/>
+                                    <segment title="mid"/>
                                     <segment title="low"/>
                                 </segments>
+                                <connections>
+                                    <action selector="filter:" destination="aE6-VJ-vtZ" eventType="valueChanged" id="cTb-Oy-s86"/>
+                                </connections>
                             </segmentedControl>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="lYs-EB-hYL">
                                 <rect key="frame" x="16" y="187" width="361" height="649"/>
@@ -239,6 +259,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="EjS-Cy-6RG"/>
                     <connections>
+                        <outlet property="priority" destination="xg2-6d-Fst" id="qaZ-qm-tFc"/>
                         <outlet property="table" destination="lYs-EB-hYL" id="PYD-L1-Mls"/>
                     </connections>
                 </viewController>
